@@ -72,7 +72,7 @@ def get_and_cache_songs(search_term):
         return CACHE_DICTION[unique_ident]
     else:
         resp = requests.get(baseurl, params=params)
-        resp_text = resp.text 
+        resp_text = resp.text
         python_resp = json.loads(resp_text)
         CACHE_DICTION[unique_ident] = python_resp
         return CACHE_DICTION[unique_ident]
@@ -84,5 +84,3 @@ if __name__ == '__main__':
     songs_resp = get_and_cache_songs("Want")
     song_objs = [Song(s) for s in songs_resp["results"]]
     single_song = random_song(song_objs)
-    
-

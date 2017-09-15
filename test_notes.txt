@@ -1,0 +1,55 @@
+
+-for cards and decks, can check if our test objects are instances of those classes
+
+-class Card class variables
+	*is suit_names of type list
+	*are the elements in suit_names strings, and are they the suit names
+	*is rank_levels of type list
+	*is the length of the list rank_levels 13
+	*are the elements in rank_levels integers, and are they 1-13
+	*is faces of type dictionary
+	*are there four key/value pairs in the dictionary faces
+	*are the key/value pairs in the dictionary faces 1:"Ace", etc.
+
+-class Card instance variables
+	*does an instance of class Card have the instance variables self.suit, self.rank, and self.rank_num
+	*does an instance of class Card without inputs given have as its instance variables the correct defaults
+	*does an instance of class Card with inputs given have as its instance variables the correct defaults
+	*does an instnace of class Card with inputs given have as its instance variables the desired values
+	*does the string method print what it should [NO, BUG]
+
+-class Deck constructor
+	*is the instnace variable self.cards a list
+	*is the length of the list self.cards 52
+	*are the elements in the list self.cards objects
+	*does the string method create what it should ("Ace of Diamonds"), etc.
+		^split at "\n"; should be a list of 52 cards
+
+-class Deck methods
+	*does the method pop_card reduce length of list self.cards by 1 (and so forth if you keep doing it)
+	*without input, does the method pop_card remove the "top" card (i.e. last in the list)
+	*with input, does the method pop_card remove the inputted card
+		^save card(x) -> pop card(x) -> test if new card in x spot != x
+	*does the method shuffle change the order of the cards (see above)
+	*will the method replace_card work on a full deck (it shouldn't)
+	*if you pop_card a specific card from the list self.cards, can you replace_card it
+		^var = card to pop -> pop that card -> check not in deck -> replace that card -> check that it's in deck
+	*if you sor_cards a full deck, is the list self.cards sorted by suit
+		^loop through the list self.cards with four counters of 13 -> see if each counter is composed of cards of the right suit
+	*if you sort-cards a non-full deck, is the list self.cards sorted by suit [NO, BUG]
+		^remove a known card via pop_card, then adjust one of your counters
+	*if you deal_hand with a given integer input, is the length of the list self.cards reduced by that input (i.e. hand size)
+	*can you deal_hand an input (i.e. hand size) greater than the length of the list self.cards
+
+-function play_war_game
+	*does the function return a tuple
+	*is the length of the tuple 3
+	*is tup[0] a string
+	*is the tup[0] string one of "Player 1", "Player 2", "Tie"
+	*are tup[1] and tup[2] integers
+	*are tup[1] and tup[2] between 0 and 52, inclusive
+	*if (e.g.) tup[0] is "Player 1", is tup[1] > tup[2]
+
+-function show_song
+	*does the function return a Song object
+	*BUG: whatever your search term, the function searches for a random element from the list of ["win","winner","hurrah","hooray"] (cf. line 111 in SI507F17_project1_cards.py)

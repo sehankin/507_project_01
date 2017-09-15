@@ -18,10 +18,10 @@ class Card(object):
             self.rank = self.faces[rank]
         else:
             self.rank = rank
-        self.rank_num = rank # To handle winning comparison 
+        self.rank_num = rank # To handle winning comparison
 
     def __str__(self):
-        return "{} of {}".format(self.rank_num,self.suit) 
+        return "{} of {}".format(self.rank_num,self.suit)
 
 class Deck(object):
     def __init__(self): # Don't need any input to create a deck of cards
@@ -39,7 +39,7 @@ class Deck(object):
         # shows up in whatever order the cards are in
         return "\n".join(total) # returns a multi-line string listing each card
 
-    def pop_card(self, i=-1): 
+    def pop_card(self, i=-1):
         return self.cards.pop(i) # this card is no longer in the deck -- taken off
 
     def shuffle(self):
@@ -48,11 +48,11 @@ class Deck(object):
     def replace_card(self, card):
         card_strs = [] # forming an empty list
         for c in self.cards: # each card in self.cards (the initial list)
-            card_strs.append(c.__str__()) # appends the string that represents that card to the empty list 
+            card_strs.append(c.__str__()) # appends the string that represents that card to the empty list
         if card.__str__() not in card_strs: # if the string representing this card is not in the list already
             self.cards.append(card) # append it to the list
 
-    def sort_cards(self): 
+    def sort_cards(self):
         self.cards = []
         for suit in range(4):
             for rank in range(1,14):
@@ -62,7 +62,7 @@ class Deck(object):
     def deal_hand(self, hand_size):
         hand_cards = []
         for i in range(hand_size):
-            hand_cards.append(self.pop_card(i)) 
+            hand_cards.append(self.pop_card(i))
         return hand_cards
 
 
@@ -133,4 +133,3 @@ if __name__ == "__main__":
 
 
 ########### DO NOT CHANGE CODE ABOVE THIS LINE ###############
-
