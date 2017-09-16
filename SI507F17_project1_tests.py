@@ -194,8 +194,198 @@ class test_class_deck_constructor(unittest.TestCase):
     # is the string produced by the string method 52 lines
     def test_does_deck_string_method_create_a_52_line_string(self):
         test_deck = Deck()
-        test_deck_split = test_deck_split("\n")
+        test_deck_cards = test_deck.__str__()
+        test_deck_split = test_deck_cards.split("\n")
         self.assertEqual(len(test_deck_split), 52, "Testing that the string produced by the string method of Deck instance test_deck is 52 lines long")
-        
+
+# test suite of class Deck methods
+class test_class_deck_methods(unittest.TestCase):
+    # does the method pop_card reduce length of list self.cards by 1
+    def test_pop_card_method_1_time(self):
+        test_deck = Deck()
+        test_deck.pop_card()
+        self.assertEqual(len(test_deck.cards), 51, "Testing that the method pop_card reduces the length of the list test_deck.cards by 1")
+    # does the method pop_card reduce length of list self.cards by 1 each time you do it
+    def test_pop_card_method_10_times(self):
+        test_deck = Deck()
+        i = 1
+        while i < 11:
+            test_deck.pop_card()
+            i = i + 1
+        self.assertEqual(len(test_deck.cards), 42, "Testing that the method pop_card called 10 times reduces the length of the list test_deck.cards by 10")
+    def test_pop_card_method_20_times(self):
+        test_deck = Deck()
+        i = 1
+        while i < 21:
+            test_deck.pop_card()
+            i = i + 1
+        self.assertEqual(len(test_deck.cards), 32, "Testing that the method pop_card called 20 times reduces the length of the list test_deck.cards by 20")
+    def test_pop_card_method_52_times(self):
+        test_deck = Deck()
+        i = 1
+        while i < 53:
+            test_deck.pop_card()
+            i = i + 1
+        self.assertEqual(len(test_deck.cards), 0, "Testing that the method pop_card called 52 times reduces the length of the list test_deck.cards by 52, resulting in an empty deck of 0 cards")
+    # TEST WHETHER POP_CARD ON AN EMPTY DECK RAISES AN ERROR?
+
+    # without input, does the method pop_card remove the "top" card (i.e. last in the list self.cards)
+    def test_pop_card_no_input(self):
+        test_deck = Deck()
+        test_deck_list = test_deck.cards
+        old_top_card = test_deck_list[-1]
+        test_deck.pop_card()
+        new_top_card = test_deck_list[-1]
+        self.assertEqual(old_top_card == new_top_card, False, "Testing that without input, the pop_card method removes the 'top' card from the deck (i.e. the last element in the list test_deck.cards)")
+    # with input, does the method pop_card remove the inputted card
+    def test_pop_card_input_0(self):
+        test_deck = Deck()
+        test_deck_list = test_deck.cards
+        old_card_0 = test_deck_list[0]
+        test_deck.pop_card(0)
+        new_card_0 = test_deck_list[0]
+        self.assertEqual(old_card_0 == new_card_0, False, "Testing that with an input of 0, the pop_card method removes the first element in the list test_deck.cards (i.e. the 'bottom' card)")
+    def test_pop_card_input_15(self):
+        test_deck = Deck()
+        test_deck_list = test_deck.cards
+        old_card_15 = test_deck_list[15]
+        test_deck.pop_card(15)
+        new_card_15 = test_deck_list[15]
+        self.assertEqual(old_card_15 == new_card_15, False, "Testing that with an input of 15, the pop_card method removes the 15th element (under zero index) in the list test_deck.cards")
+    def test_pop_card_input_30(self):
+        test_deck = Deck()
+        test_deck_list = test_deck.cards
+        old_card_30 = test_deck_list[30]
+        test_deck.pop_card(30)
+        new_card_30 = test_deck_list[30]
+        self.assertEqual(old_card_30 == new_card_30, False, "Testing that with an input of 30, the pop_card method removes the 30th element (under zero index) in the list test_deck.cards")
+    # does the method shuffle change the order of the cards
+    def test_shuffle(self):
+        test_deck = Deck()
+        deck_before_shuffle = test_deck.cards
+        deck_before_shuffle_strings = []
+        for card_object in deck_before_shuffle:
+            deck_before_shuffle_strings.append(card_object.__str__())
+            test_deck.shuffle()
+        deck_after_shuffle = test_deck.cards
+        deck_after_shuffle_strings = []
+        for card_object in deck_after_shuffle:
+            deck_after_shuffle_strings.append(card_object.__str__())
+        self.assertEqual(deck_before_shuffle_strings == deck_after_shuffle_strings, False, "Testing that the shuffle method changes the order of test_deck.cards by seeing whether lists of card strings (NOT objects) are the same before and after shuffling")
+    # if you replace_card a card already in the deck, does it work (it shouldn't)
+    def test_replace_card_on_full_deck(self):
+        test_deck = Deck()
+        card_53 = Card() # 2 of Diamonds
+        test_deck.replace_card(card_53)
+        self.assertEqual(len(test_deck.cards), 52, "Testing that the replace_card method doesn't add a card to a full deck")
+    def test_remove_known_card_from_deck_and_try_to_replace_with_different_card(self):
+        test_deck = Deck()
+        i = 0
+        while i < 52:
+            for card_object in test_deck.cards:
+                if card_object.__str__() == "3 of Diamonds":
+                    three_of_diamonds_index = test_deck.cards.index(card_object)
+            i = i + 1
+        test_deck.pop_card(three_of_diamonds_index)
+        extra_2_of_diamonds = Card()
+        test_deck.replace_card(extra_2_of_diamonds)
+        self.assertEqual(len(test_deck.cards), 51, "Testing that after using the pop_card method to remove a known card (here, the 3 of Diamonds) from Deck instance test_deck, attempting to replace_card a card still in test_deck (here, the 2 of Diamonds) won't work, and the list test_deck.cards will still have length 51")
+    # if you pop_card a specific card from the list self.cards, can you replace_card it
+    def test_remove_known_card_from_deck_and_try_to_replace_with_same_card(self):
+        test_deck = Deck()
+        i = 0
+        while i < 52:
+            for card_object in test_deck.cards:
+                if card_object.__str__() == "2 of Diamonds":
+                    two_of_diamonds_index = test_deck.cards.index(card_object)
+            i = i + 1
+        test_deck.pop_card(two_of_diamonds_index)
+        extra_2_of_diamonds = Card()
+        test_deck.replace_card(extra_2_of_diamonds)
+        self.assertEqual(len(test_deck.cards), 52, "Testing that after using the pop_card method to remove a known card (here, the 2 of Diamonds) from Deck instance test_deck, attempting to replace_card that same card will work, and the list test_deck.cards will have length 52")
+    # if you sort_cards a full deck, is the list self.cards sorted by suit
+    def test_sort_cards_with_full_deck(self):
+        test_deck = Deck()
+        test_deck.sort_cards()
+        for card_object in test_deck.cards:
+            if test_deck.cards.index(card_object) < 13:
+                self.assertEqual(card_object.suit, "Diamonds", "Testing that using the sort_card method on a full deck, the first 13 cards (indices 0-12) in the list test_deck.cards all have self.suit 'Diamonds'")
+            elif test_deck.cards.index(card_object) > 12 and test_deck.cards.index(card_object) < 26:
+                self.assertEqual(card_object.suit, "Clubs", "Testing that using the sort_card method on a full deck, the second 13 cards (indices 13-25) in the list test_deck.cards all have self.suit 'Clubs'")
+            elif test_deck.cards.index(card_object) > 25 and test_deck.cards.index(card_object) < 39:
+                self.assertEqual(card_object.suit, "Hearts", "Testing that using the sort_card method on a full deck, the third 13 cards (indices 26-38) in the list test_deck.cards all have self.suit 'Hearts'")
+            elif test_deck.cards.index(card_object) > 38:
+                self.assertEqual(card_object.suit, "Spades", "Testing that using the sort_card method on a full deck, the last 13 cards (indices 39-51) in the list test_deck.cards all have self.suit 'Spades'")
+    # if you sort_cards a non-full deck, is the list self.cards sorted by suit
+    def test_sort_cards_with_one_known_card_removed_from_deck(self):
+        test_deck = Deck()
+        i = 0
+        while i < 52:
+            for card_object in test_deck.cards:
+                if card_object.__str__() == "2 of Diamonds":
+                    two_of_diamonds_index = test_deck.cards.index(card_object)
+            i = i + 1
+        test_deck.pop_card(two_of_diamonds_index)
+        test_deck.sort_cards()
+        for card_object in test_deck.cards:
+            if test_deck.cards.index(card_object) < 12:
+                self.assertEqual(card_object.suit, "Diamonds", "Testing that using the sort_card method on a full deck, the first 13 cards (indices 0-11) in the list test_deck.cards all have self.suit 'Diamonds'")
+            elif test_deck.cards.index(card_object) > 11 and test_deck.cards.index(card_object) < 25:
+                self.assertEqual(card_object.suit, "Clubs", "Testing that using the sort_card method on a full deck, the next 13 cards (indices 12-24) in the list test_deck.cards all have self.suit 'Clubs'")
+            elif test_deck.cards.index(card_object) > 24 and test_deck.cards.index(card_object) < 38:
+                self.assertEqual(card_object.suit, "Hearts", "Testing that using the sort_card method on a full deck, the next 13 cards (indices 25-37) in the list test_deck.cards all have self.suit 'Hearts'")
+            elif test_deck.cards.index(card_object) > 37:
+                self.assertEqual(card_object.suit, "Spades", "Testing that using the sort_card method on a full deck, the last 13 cards (indices 38-5) in the list test_deck.cards all have self.suit 'Spades'")
+    # if you deal_hand with a given integer input, is the length of the list self.cards reduced by that input (i.e. hand size)
+    def test_deal_hand_0(self):
+        test_deck = Deck()
+        test_deck.deal_hand(0)
+        self.assertEqual(len(test_deck.cards), 52, "Testing that after using the deal_hand method with an input of 0 on a full deck, the length of the list test_deck remains 52")
+    def test_deal_hand_5_once(self):
+        test_deck = Deck()
+        test_deck.deal_hand(5)
+        self.assertEqual(len(test_deck.cards), 47, "Testing that after using the deal_hand method once with an input of 5 on a full deck, the length of the list test_deck is 47")
+    def test_deal_hand_5_five_times(self):
+        test_deck = Deck()
+        i = 1
+        while i < 6:
+            test_deck.deal_hand(5)
+            i = i + 1
+        self.assertEqual(len(test_deck.cards), 27, "Testing that after using the deal_hand method five times with an input of 5 on a full deck, the length of the list test_deck is 27")
+    def test_deal_hand_5_ten_times(self):
+        test_deck = Deck()
+        i = 1
+        while i < 11:
+            test_deck.deal_hand(5)
+            i = i + 1
+        self.assertEqual(len(test_deck.cards), 2, "Testing that after using the deal_hand method ten times with an input of 5 on a full deck, the length of the list test_deck is 2")
+    def test_deal_hand_52(self):
+        test_deck = Deck()
+        test_deck.deal_hand(52)
+        self.assertEqual(len(test_deck.cards), 0, "Testing that after using the deal_hand method once with an input of 52 on a full deck, the length of the list test_deck is 0")
+    # TEST WHETHER DEAL_HAND WITH AN INPUT GREATER THAN THE NUMBER OF CARDS IN THE DECK (I.E. THE LENGTH OF THE LIST SELF.CARDS) RAISES AN ERROR?
+
+    # does deal_hand function return a list whose length is the hand
+    def test_deal_hand_returns_list(self):
+        test_deck = Deck()
+        hand = test_deck.deal_hand(7)
+        self.assertEqual(len(hand), 7, "Testing that using the deal_hand method once with an input of 7 on a full deck returns a list of length 7")
+    # are the elements in the list Card objects
+    def test_deal_hand_returns_list_of_card_objects(self):
+        test_deck = Deck()
+        hand = test_deck.deal_hand(7)
+        for element in hand:
+            self.assertEqual(type(element), Card, "Testing that the elements in the list returned by the deal_hand method are Card objects")
+    # are those Card objects absent from the deck
+    def test_deal_hand_removes_card_objects_from_deck(self):
+        test_deck = Deck()
+        hand = test_deck.deal_hand(7)
+        test_deck_strings = []
+        for deck_card_object in test_deck.cards:
+            test_deck_strings.append(deck_card_object.__str__())
+        for hand_card_object in hand:
+            hand_card_string = hand_card_object.__str__()
+            self.assertEqual(hand_card_string not in test_deck_strings, True, "Testing that the Card objects in the list returned by the deal_hand method are removed from the test_deck")   
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
