@@ -57,5 +57,124 @@ class test_class_card_class_variables(unittest.TestCase):
         for item in Card.faces.items():
             self.assertEqual(item in face_pairs_list, True, "Testing that the key/value pairs in the dictionary Card.faces are 1-Ace, 11-Jack, 12-Queen, and 13-King")
 
+# test suite of class Card instance variables
+class test_class_card_instance_variables(unittest.TestCase):
+    # setup
+    #def setUp(self):
+    #    self.test_default_card = Card() # no input; should be 2 of Diamonds
+    #    self.test_number_card = Card(2, 7) # should be 7 of Hearts
+    #    self.test_face_card = Card(3, 12) # should be Queen of Spades
+    # does an instance of class Card have the instance variable self.suit, and is self.suit of type string
+    def test_that_test_default_card_has_string_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_default_card.suit), type("str"), "Testing that the Card instance test_default_card has an instance variable test_default_card.suit of type string")
+    def test_that_test_number_card_has_string_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_number_card.suit), type("str"), "Testing that the Card instance test_number_card has an instance variable test_number_card.suit of type string")
+    def test_that_test_face_card_has_string_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_face_card.suit), type("str"), "Testing that the Card instance test_face_card has an instance variable test_face_card.suit of type string")
+    # does an instance of class Card have the instance variable self.rank, and is self.rank of type integer (for non-face cards) or string (for face cards)
+    def test_that_test_default_card_has_integer_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_default_card.rank), type(1), "Testing that the Card instance test_default_card has an instance variable test_default_card.rank of type integer")
+    def test_that_test_number_card_has_integer_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_number_card.rank), type(1), "Testing that the Card instance test_number_card has an instance variable test_number_card.rank of type integer")
+    def test_that_test_face_card_has_string_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_face_card.rank), type("str"), "Testing that the Card instance test_face_card has an instance variable test_face_card.rank of type string")
+    # does an instance of class Card have the instance variable self.rank_num, and is self.rank_num of type integer
+    def test_that_test_default_card_has_integer_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_default_card.rank_num), type(1), "Testing that the Card instance test_default_card has an instance variable test_default_card.rank_num of type integer")
+    def test_that_test_number_card_has_integer_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_number_card.rank_num), type(1), "Testing that the Card instance test_number_card has an instance variable test_number_card.rank_num of type integer")
+    def test_that_test_face_card_has_integer_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(type(test_face_card.rank_num), type(1), "Testing that the Card instance test_face_card has an instance variable test_face_card.rank_num of type integer")
+    # does an instance of class Card without inputs given have as its instance variables the correct defaults (2 of Diamonds, i.e. self.suit is "Diamonds," self.rank is 2, and self.rank_num is 2)
+    def test_that_test_default_card_has_correct_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_default_card.suit, "Diamonds", "Testing that the Card instance test_default_card has an instance variable test_default_card.suit whose value is the string 'Diamonds'")
+    def test_that_test_default_card_has_correct_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_default_card.rank, 2, "Testing that the Card instance test_default_card has an instance variable test_default_card.rank whose value is the integer 2")
+    def test_that_test_default_card_has_correct_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_default_card.rank_num, 2, "Testing that the Card instance test_default_card has an instance variable test_default_card.rank_num whose value is the integer 2")
+    # does an instance of class Card with inputs given have as its instance variables the correct suit and rank
+    def test_that_test_number_card_has_correct_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_number_card.suit, "Hearts", "Testing that the Card instance test_number_card has an instance variable test_number_card.suit whose value is the string 'Hearts'")
+    def test_that_test_number_card_has_correct_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_number_card.rank, 7, "Testing that the Card instance test_number_card has an instance variable test_number_card.rank whose value is the integer 7")
+    def test_that_test_number_card_has_correct_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_number_card.rank_num, 7, "Testing that the Card instance test_number_card has an instance variable test_number_card.rank_num whose value is the integer 7")
+    def test_that_test_face_card_has_correct_suit(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_face_card.suit, "Spades", "Testing that the Card instance test_face_card has an instance variable test_face_card.suit whose value is Spades")
+    def test_that_test_face_card_has_correct_rank(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_face_card.rank, "Queen", "Testing that the Card instance test_face_card has an instance variable test_face_card.rank whose value is the string 'Queen'")
+    def test_that_test_face_card_has_correct_rank_num(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_face_card.rank_num, 12, "Testing that the Card instance test_face_card has an instance variable test_face_card.rank_num whose value is the integer 12")
+    # does the string method print what it should
+    def test_of_test_default_card_string_method(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_default_card.__str__(), "2 of Diamonds", "Testing that the string method of test_default_card prints the string '2 of Diamonds'")
+    def test_of_test_number_card_string_method(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_number_card.__str__(), "7 of Hearts", "Testing that the string method of test_number_card prints the string '7 of Hearts'")
+    def test_of_test_face_card_string_method(self):
+        test_default_card = Card() # no input; should be 2 of Diamonds
+        test_number_card = Card(2, 7) # should be 7 of Hearts
+        test_face_card = Card(3, 12) # should be Queen of Spades
+        self.assertEqual(test_face_card.__str__(), "Queen of Spades", "Testing that the string method of test_face_card prints the string 'Queen of Spades'")
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

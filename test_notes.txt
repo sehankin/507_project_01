@@ -14,8 +14,7 @@
 -class Card instance variables
 	*does an instance of class Card have the instance variables self.suit, self.rank, and self.rank_num
 	*does an instance of class Card without inputs given have as its instance variables the correct defaults
-	*does an instance of class Card with inputs given have as its instance variables the correct defaults
-	*does an instnace of class Card with inputs given have as its instance variables the desired values
+	*does an instance of class Card with inputs given have as its instance variables the correct suit and rank
 	*does the string method print what it should [NO, BUG]
 
 -class Deck constructor
