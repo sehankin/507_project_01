@@ -18,11 +18,11 @@
 	*does the string method print what it should [NO, BUG]
 
 -class Deck constructor
-	*is the instnace variable self.cards a list
+	*is the instance variable self.cards a list
 	*is the length of the list self.cards 52
-	*are the elements in the list self.cards objects
+	*are the elements in the list self.cards Card objects
 	*does the string method create what it should ("Ace of Diamonds"), etc.
-		^split at "\n"; should be a list of 52 cards
+		^split at "\n"; should be a list of 52 cards (strings like "Ace of Diamonds")
 
 -class Deck methods
 	*does the method pop_card reduce length of list self.cards by 1 (and so forth if you keep doing it)
@@ -33,7 +33,7 @@
 	*will the method replace_card work on a full deck (it shouldn't)
 	*if you pop_card a specific card from the list self.cards, can you replace_card it
 		^var = card to pop -> pop that card -> check not in deck -> replace that card -> check that it's in deck
-	*if you sor_cards a full deck, is the list self.cards sorted by suit
+	*if you sort_cards a full deck, is the list self.cards sorted by suit
 		^loop through the list self.cards with four counters of 13 -> see if each counter is composed of cards of the right suit
 	*if you sort-cards a non-full deck, is the list self.cards sorted by suit [NO, BUG]
 		^remove a known card via pop_card, then adjust one of your counters

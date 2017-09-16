@@ -59,11 +59,6 @@ class test_class_card_class_variables(unittest.TestCase):
 
 # test suite of class Card instance variables
 class test_class_card_instance_variables(unittest.TestCase):
-    # setup
-    #def setUp(self):
-    #    self.test_default_card = Card() # no input; should be 2 of Diamonds
-    #    self.test_number_card = Card(2, 7) # should be 7 of Hearts
-    #    self.test_face_card = Card(3, 12) # should be Queen of Spades
     # does an instance of class Card have the instance variable self.suit, and is self.suit of type string
     def test_that_test_default_card_has_string_suit(self):
         test_default_card = Card() # no input; should be 2 of Diamonds
@@ -176,5 +171,31 @@ class test_class_card_instance_variables(unittest.TestCase):
         test_face_card = Card(3, 12) # should be Queen of Spades
         self.assertEqual(test_face_card.__str__(), "Queen of Spades", "Testing that the string method of test_face_card prints the string 'Queen of Spades'")
 
+# test suite of class Deck constructor
+class test_class_deck_constructor(unittest.TestCase):
+    # is the instance variable self.cards a list
+    def test_is_instance_variable_cards_a_list(self):
+        test_deck = Deck()
+        self.assertEqual(type(test_deck.cards), type(["el1", "el2"]), "Testing that the instance variable test_deck.cards is of type list")
+    # is the length of the list self.cards 52
+    def test_is_instance_variable_cards_len_52(self):
+        test_deck = Deck()
+        self.assertEqual(len(test_deck.cards), 52, "Testing that the length of the list test_deck.cards is 52")
+    # are the elements in the list self.cards Card objects
+    def test_are_elements_of_instance_variable_cards_card_objects(self):
+        test_deck = Deck()
+        test_card = Card()
+        for card in test_deck.cards:
+            self.assertEqual(type(card), type(test_card), "Testing that each element of the list test_deck.cards is a Card object")
+    # does the string method create a string
+    def test_does_deck_string_method_create_a_string(self):
+        test_deck = Deck()
+        self.assertEqual(type(test_deck.__str__()), type("str"), "Testing that the string method of Deck instance test_deck produces a string")
+    # is the string produced by the string method 52 lines
+    def test_does_deck_string_method_create_a_52_line_string(self):
+        test_deck = Deck()
+        test_deck_split = test_deck_split("\n")
+        self.assertEqual(len(test_deck_split), 52, "Testing that the string produced by the string method of Deck instance test_deck is 52 lines long")
+        
 if __name__ == "__main__":
     unittest.main(verbosity=2)
