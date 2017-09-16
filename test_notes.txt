@@ -45,7 +45,7 @@
 	*does the function return a tuple
 	*is the length of the tuple 3
 	*is tup[0] a string
-	*is the tup[0] string one of "Player 1", "Player 2", "Tie"
+	*is the tup[0] string one of "Player1", "Player2", "Tie"
 	*are tup[1] and tup[2] integers
 	*are tup[1] and tup[2] between 0 and 52, inclusive
 	*if (e.g.) tup[0] is "Player 1", is tup[1] > tup[2]

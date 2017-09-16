@@ -385,7 +385,48 @@ class test_class_deck_methods(unittest.TestCase):
             test_deck_strings.append(deck_card_object.__str__())
         for hand_card_object in hand:
             hand_card_string = hand_card_object.__str__()
-            self.assertEqual(hand_card_string not in test_deck_strings, True, "Testing that the Card objects in the list returned by the deal_hand method are removed from the test_deck")   
+            self.assertEqual(hand_card_string not in test_deck_strings, True, "Testing that the Card objects in the list returned by the deal_hand method are removed from the test_deck")
+
+# test suite of function play_war_game
+class test_function_play_war_game(unittest.TestCase):
+    # does the function play_war_game return a tuple
+    def test_if_function_play_war_game_returns_a_tuple(self):
+        war_game = play_war_game(testing=True)
+        self.assertEqual(type(war_game), type(("tup1", "tup2")), "Testing that the function play_war_game returns a tuple")
+    # is the length of the tuple 3
+    def test_if_function_play_war_game_returns_a_tuple_of_length_3(self):
+        war_game = play_war_game(testing=True)
+        self.assertEqual(len(war_game), 3, "Testing that the function play_war_game returns a tuple of length 3")
+    # is tup[0] of type string
+    def test_if_element_0_of_war_game_tuple_is_of_type_string(self):
+        war_game = play_war_game(testing=True)
+        self.assertEqual(type(war_game[0]), type("str"), "Testing that element 0 of the tuple returned by the function play_war_game is a string")
+    # is the string one of "Player1", "Player2", "Tie"
+    def test_if_element_0_of_war_game_tuple_is_an_approved_string(self):
+        war_game = play_war_game(testing=True)
+        approved_strings = ["Player1", "Player2", "Tie"]
+        self.assertEqual(war_game[0] in approved_strings, True, "Testing that element 0 of the tuple returned by the function play_war_game is one of 'Player1', 'Player2', 'Tie'")
+    # are tup[1] and tup[2] of type integer
+    def test_if_elements_1_and_2_of_war_game_tuple_are_integers(self):
+        war_game = play_war_game(testing=True)
+        self.assertEqual(type(war_game[1]), type(1), "Testing that element 1 of the tuple returned by the function play_war_game is of type integer")
+        self.assertEqual(type(war_game[2]), type(1), "Testing that element 2 of the tuple returned by the function play_war_game is of type integer")
+    # are tup[1] and tup[2] between 0 and 52, inclusive
+    def test_if_elements_1_and_2_of_war_game_tuple_are_integers_between_0_and_52(self):
+        war_game = play_war_game(testing=True)
+        self.assertEqual(war_game[1] >= 0 and war_game[1] <= 52, True, "Testing that element 1 of the tuple returned by the function play_war_game is an integer between 0 and 52, inclusive")
+        self.assertEqual(war_game[2] >= 0 and war_game[1] <= 52, True, "Testing that element 2 of the tuple returned by the function play_war_game is an integer between 0 and 52, inclusive")
+    # if (e.g.) tup[0] is "Player 1", is tup[1] > tup[2]
+    def test_if_play_war_game_scores_match_winner(self):
+        war_games = ["war_game_1", "war_game_2", "war_game_3", "war_game_4", "war_game_5"]
+        for war_game in war_games:
+            war_game = play_war_game(testing=True)
+            if war_game[1] > war_game[2]:
+                self.assertEqual(war_game[0], "Player1", "Testing that if the integer element 1 of the tuple returend by the function play_war_game is greater than the integer element 2, then element 0 is the string 'Player1' (meaning that Player 1 won the game)")
+            elif war_game[2] > war_game[1]:
+                self.assertEqual(war_game[0], "Player2", "Testing that if the integer element 2 of the tuple returend by the function play_war_game is greater than the integer element 1, then element 0 is the string 'Player2' (meaning that Player 2 won the game)")
+            elif war_game[1] == war_game[2]:
+                self.assertEqual(war_game[0], "Tie", "Testing that if the integer elements 1 and 2 of the tuple returned by the function play-war_game are equal, then element 0 is the string 'Tie' (meaning that the two players tied the game)")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
