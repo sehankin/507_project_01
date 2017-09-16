@@ -428,5 +428,24 @@ class test_function_play_war_game(unittest.TestCase):
             elif war_game[1] == war_game[2]:
                 self.assertEqual(war_game[0], "Tie", "Testing that if the integer elements 1 and 2 of the tuple returned by the function play-war_game are equal, then element 0 is the string 'Tie' (meaning that the two players tied the game)")
 
+# test suite of function show_song
+class test_function_show_song(unittest.TestCase):
+    # does the function show_song return a Song object
+    def test_if_show_song_returns_a_song_object(self):
+        dummy_song = show_song()
+        self.assertIsInstance(dummy_song, Song, "Testing that the function show_song returns an instance of class Song")
+    # with no input, does the function show_song return a song object/string with the string "winner" in it
+    def test_if_show_song_returns_winner_stuff_without_input(self):
+        winner_song = show_song()
+        winner_song_string = winner_song.__str__()
+        winner_song_string_lower = winner_song_string.lower()
+        self.assertEqual("winner" in winner_song_string_lower, True, "Testing that without input, the function show_song returns a Song object whose string method returns a string that has the string 'winner' in it")
+    # with input, does the function show_song return a song object/string with the search string in it
+    def test_if_show_song_returns_search_string_with_input(self):
+        chandelier_song = show_song("chandelier")
+        chandelier_song_string = chandelier_song.__str__()
+        chandelier_song_string_lower = chandelier_song_string.lower()
+        self.assertEqual("chandelier" in chandelier_song_string_lower, True, "Testing that with input, the function show_song returns a Song object whose string method returns a string that has the search string in it")
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
