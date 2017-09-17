@@ -1,4 +1,10 @@
 
+-FINAL LIST OF BUGS:
+	*Card string method ("12 of Spades", etc.)
+	*Deck string method ("12 of Spades", etc.)
+	*sort_cards on a non-full deck (doesn't order by suit)
+	*deal_hand for hands greater than 26 cards (raises error)
+
 -LAST TESTS:
 	*deck's string method
 	*more hand sizes on shuffle

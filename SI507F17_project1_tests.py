@@ -1,14 +1,14 @@
-## Do not change import statements.
+# Do not change import statements.
 import unittest
 from SI507F17_project1_cards import *
 
-## Write your unit tests to test the cards code here.
-## You should test to ensure that everything explained in the code description file works as that file says.
-## If you have correctly written the tests, at least 3 tests should fail. If more than 3 tests fail, it should be because multiple of the test methods address the same problem in the code.
-## You may write as many TestSuite subclasses as you like, but you should try to make these tests well-organized and easy to read the output.
-## You should invoke the tests with verbosity=2 (make sure you invoke them!)
+# Write your unit tests to test the cards code here.
+# You should test to ensure that everything explained in the code description file works as that file says.
+# If you have correctly written the tests, at least 3 tests should fail. If more than 3 tests fail, it should be because multiple of the test methods address the same problem in the code.
+# You may write as many TestSuite subclasses as you like, but you should try to make these tests well-organized and easy to read the output.
+# You should invoke the tests with verbosity=2 (make sure you invoke them!)
 
-###########
+# BEGIN TESTS
 
 # I worked on this assignment with Tyler Hoff and Jacob Haspiel.
 # We went through code_description_507F17project1.txt and wrote output
@@ -19,8 +19,8 @@ from SI507F17_project1_cards import *
 # 1. Jacob's try/except workaround for assertRaises() errors,
 # which I appropriated because I wanted those tests to fail
 # when an error is raised, and there's no assertNotRaises()
-# 2. Tyler explained to me why one of my tests couldn't recognize
-# a Song object, and to type helper_functions.Song in that test.
+# 2. Tyler explained to me why my show_song tests couldn't recognize
+# a Song object, and to type helper_functions.Song.
 
 
 # test suite of class Card class variables
@@ -204,7 +204,19 @@ class test_class_deck_constructor(unittest.TestCase):
         test_deck_cards = test_deck.__str__()
         test_deck_split = test_deck_cards.split("\n")
         self.assertEqual(len(test_deck_split), 52, "Testing that the string produced by the string method of Deck instance test_deck is 52 lines long")
-    # deck string method doesn't do "Queen of Spades", etc.
+    # does the Deck string include the desired strings
+    def test_does_deck_string_include_number_cards(self):
+        test_deck = Deck()
+        test_deck_cards = test_deck.__str__()
+        self.assertEqual("2 of Diamonds" in test_deck_cards, True, "Testing that the string '2 of Diamonds' is in the Deck string")
+    def test_does_deck_string_include_face_cards_right(self):
+        test_deck = Deck()
+        test_deck_cards = test_deck.__str__()
+        self.assertEqual("Queen of Spades" in test_deck_cards, True, "Testing that the string 'Queen of Spades' is in the Deck string")
+    def test_does_deck_string_include_face_cards_wrong(self):
+        test_deck = Deck()
+        test_deck_cards = test_deck.__str__()
+        self.assertEqual("12 of Spades" in test_deck_cards, False, "Testing that the string '12 of Spades' is not in the Deck string")
 
 # test suite of class Deck methods
 class test_class_deck_methods(unittest.TestCase):
@@ -235,7 +247,18 @@ class test_class_deck_methods(unittest.TestCase):
             test_deck.pop_card()
             i = i + 1
         self.assertEqual(len(test_deck.cards), 0, "Testing that the method pop_card called 52 times reduces the length of the list test_deck.cards by 52, resulting in an empty deck of 0 cards")
-    # TEST WHETHER POP_CARD ON AN EMPTY DECK RAISES AN ERROR?
+    def test_pop_card_method_on_empty_deck(self):
+        test_deck = Deck()
+        i = 1
+        while i < 53:
+            test_deck.pop_card()
+            i = i + 1
+        try:
+            test_deck.pop_card()
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that the method pop_card raises an error when called on an empty deck")
 
     # without input, does the method pop_card remove the "top" card (i.e. last in the list self.cards)
     def test_pop_card_no_input(self):
@@ -345,6 +368,9 @@ class test_class_deck_methods(unittest.TestCase):
             elif test_deck.cards.index(card_object) > 37:
                 self.assertEqual(card_object.suit, "Spades", "Testing that using the sort_card method on a full deck, the last 13 cards (indices 38-5) in the list test_deck.cards all have self.suit 'Spades'")
     # if you deal_hand with a given integer input, is the length of the list self.cards reduced by that input (i.e. hand size)
+    # N.B. I rewrote the tests of hand sizes greater than 27 to give me
+    # FAILs instead of ERRORs.  The original tests are still there,
+    # but commented out.
     def test_deal_hand_0(self):
         test_deck = Deck()
         test_deck.deal_hand(0)
@@ -360,30 +386,99 @@ class test_class_deck_methods(unittest.TestCase):
             test_deck.deal_hand(5)
             i = i + 1
         self.assertEqual(len(test_deck.cards), 27, "Testing that after using the deal_hand method five times with an input of 5 on a full deck, the length of the list test_deck is 27")
+    #def test_deal_hand_5_ten_times_original(self):
+    #    test_deck = Deck()
+    #    i = 1
+    #    while i < 11:
+    #        test_deck.deal_hand(5)
+    #        i = i + 1
+    #    self.assertEqual(len(test_deck.cards), 2, "Testing that after using the deal_hand method ten times with an input of 5 on a full deck, the length of the list test_deck is 2")
     def test_deal_hand_5_ten_times(self):
         test_deck = Deck()
-        i = 1
-        while i < 11:
-            test_deck.deal_hand(5)
-            i = i + 1
-        self.assertEqual(len(test_deck.cards), 2, "Testing that after using the deal_hand method ten times with an input of 5 on a full deck, the length of the list test_deck is 2")
+        try:
+            i = 1
+            while i < 11:
+                test_deck.deal_hand(5)
+                i = i + 1
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that attempting to use the deal_hand method ten times with an input of 5 on a full deck raises an error")
+    #def test_deal_hand_52_original(self):
+    #    test_deck = Deck()
+    #    test_deck.deal_hand(52)
+    #    self.assertEqual(len(test_deck.cards), 0, "Testing that after using the deal_hand method once with an input of 52 on a full deck, the length of the list test_deck is 0")
     def test_deal_hand_52(self):
         test_deck = Deck()
-        test_deck.deal_hand(52)
-        self.assertEqual(len(test_deck.cards), 0, "Testing that after using the deal_hand method once with an input of 52 on a full deck, the length of the list test_deck is 0")
+        try:
+            test_deck.deal_hand(52)
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that attempting to use the deal_hand method with an input of 52 on a full deck raises an error")
     # hand of 40
-
+    #def test_deal_hand_40_original(self):
+    #    test_deck = Deck()
+    #    test_deck.deal_hand(40)
+    #    self.assertEqual(len(test_deck.cards), 12, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 12")
+    def test_deal_hand_40(self):
+        test_deck = Deck()
+        try:
+            test_deck.deal_hand(40)
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that attempting to use the deal_hand method with an input of 40 on a full deck raises an error")
     # hand of 30
-
+    #def test_deal_hand_30_original(self):
+    #    test_deck = Deck()
+    #    test_deck.deal_hand(30)
+    #    self.assertEqual(len(test_deck.cards), 22, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 22")
+    def test_deal_hand_30(self):
+        test_deck = Deck()
+        try:
+            test_deck.deal_hand(30)
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that attempting to use the deal_hand method with an input of 30 on a full deck raises an error")
     # hand of 20
-
+    def test_deal_hand_20(self):
+        test_deck = Deck()
+        test_deck.deal_hand(20)
+        self.assertEqual(len(test_deck.cards), 32, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 32")
     # hand of 25
-
+    def test_deal_hand_25(self):
+        test_deck = Deck()
+        test_deck.deal_hand(25)
+        self.assertEqual(len(test_deck.cards), 27, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 27")
     # hand of 26
-
+    def test_deal_hand_26(self):
+        test_deck = Deck()
+        test_deck.deal_hand(26)
+        self.assertEqual(len(test_deck.cards), 26, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 26")
     # hand of 27
-
-    # TEST WHETHER DEAL_HAND WITH AN INPUT GREATER THAN THE NUMBER OF CARDS IN THE DECK (I.E. THE LENGTH OF THE LIST SELF.CARDS) RAISES AN ERROR?
+    #def test_deal_hand_27_original(self):
+    #    test_deck = Deck()
+    #    test_deck.deal_hand(27)
+    #    self.assertEqual(len(test_deck.cards), 25, "Testing that after using the deal_hand method once with an input of 40 on a full deck, the length of the list test_deck is 25")
+    def test_deal_hand_27(self):
+        test_deck = Deck()
+        try:
+            test_deck.deal_hand(27)
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that attempting to use the deal_hand method with an input of 27 on a full deck raises an error")
+    # hand of 53
+    def test_deal_hand_53(self):
+        test_deck = Deck()
+        try:
+            test_deck.deal_hand(53)
+            no_error = True
+        except:
+            no_error = False
+        self.assertEqual(no_error, True, "Testing that if the deal_hand method is called 53 times on a full deck, it raises an error")
 
     # does deal_hand function return a list whose length is the hand
     def test_deal_hand_returns_list(self):
@@ -450,24 +545,13 @@ class test_function_play_war_game(unittest.TestCase):
 
 # test suite of function show_song
 class test_function_show_song(unittest.TestCase):
-    # does the show_song function take input
-
-    # does the function show_song return a Song object
-    def test_if_show_song_returns_a_song_object(self):
+    # does the show_song function return a Song object, with or without input
+    def test_if_show_song_without_input_returns_a_song_object(self):
         dummy_song = show_song()
-        self.assertIsInstance(dummy_song, helper_functions.Song, "Testing that the function show_song returns an instance of class Song")
-    # with no input, does the function show_song return a song object/string with the string "winner" in it
-    def test_if_show_song_returns_winner_stuff_without_input(self):
-        winner_song = show_song()
-        winner_song_string = winner_song.__str__()
-        winner_song_string_lower = winner_song_string.lower()
-        self.assertEqual("winner" in winner_song_string_lower, True, "Testing that without input, the function show_song returns a Song object whose string method returns a string that has the string 'winner' in it")
-    # with input, does the function show_song return a song object/string with the search string in it
-    def test_if_show_song_returns_search_string_with_input(self):
+        self.assertIsInstance(dummy_song, helper_functions.Song, "Testing that the function show_song returns an instance of class Song if no input is given")
+    def test_if_show_song_with_input_returns_a_song_object(self):
         chandelier_song = show_song("chandelier")
-        chandelier_song_string = chandelier_song.__str__()
-        chandelier_song_string_lower = chandelier_song_string.lower()
-        self.assertEqual("chandelier" in chandelier_song_string_lower, True, "Testing that with input, the function show_song returns a Song object whose string method returns a string that has the search string in it")
+        self.assertIsInstance(chandelier_song, helper_functions.Song, "Testing that the function show_song returns an instance of class Song if input is given")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
