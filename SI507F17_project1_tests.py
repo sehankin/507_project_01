@@ -14,7 +14,14 @@ from SI507F17_project1_cards import *
 # We went through code_description_507F17project1.txt and wrote output
 # English-language descriptions of what tests to run,
 # occasionally making code-y notes such as "create a card object and
-# save it to a variable."  My code-code, however, is my own.
+# save it to a variable."  My code-code, however, is my own,
+# with two exceptions:
+# 1. Jacob's try/except workaround for assertRaises() errors,
+# which I appropriated because I wanted those tests to fail
+# when an error is raised, and there's no assertNotRaises()
+# 2. Tyler explained to me why one of my tests couldn't recognize
+# a Song object, and to type helper_functions.Song in that test.
+
 
 # test suite of class Card class variables
 class test_class_card_class_variables(unittest.TestCase):
@@ -197,6 +204,7 @@ class test_class_deck_constructor(unittest.TestCase):
         test_deck_cards = test_deck.__str__()
         test_deck_split = test_deck_cards.split("\n")
         self.assertEqual(len(test_deck_split), 52, "Testing that the string produced by the string method of Deck instance test_deck is 52 lines long")
+    # deck string method doesn't do "Queen of Spades", etc.
 
 # test suite of class Deck methods
 class test_class_deck_methods(unittest.TestCase):
@@ -363,6 +371,18 @@ class test_class_deck_methods(unittest.TestCase):
         test_deck = Deck()
         test_deck.deal_hand(52)
         self.assertEqual(len(test_deck.cards), 0, "Testing that after using the deal_hand method once with an input of 52 on a full deck, the length of the list test_deck is 0")
+    # hand of 40
+
+    # hand of 30
+
+    # hand of 20
+
+    # hand of 25
+
+    # hand of 26
+
+    # hand of 27
+
     # TEST WHETHER DEAL_HAND WITH AN INPUT GREATER THAN THE NUMBER OF CARDS IN THE DECK (I.E. THE LENGTH OF THE LIST SELF.CARDS) RAISES AN ERROR?
 
     # does deal_hand function return a list whose length is the hand
@@ -430,10 +450,12 @@ class test_function_play_war_game(unittest.TestCase):
 
 # test suite of function show_song
 class test_function_show_song(unittest.TestCase):
+    # does the show_song function take input
+
     # does the function show_song return a Song object
     def test_if_show_song_returns_a_song_object(self):
         dummy_song = show_song()
-        self.assertIsInstance(dummy_song, Song, "Testing that the function show_song returns an instance of class Song")
+        self.assertIsInstance(dummy_song, helper_functions.Song, "Testing that the function show_song returns an instance of class Song")
     # with no input, does the function show_song return a song object/string with the string "winner" in it
     def test_if_show_song_returns_winner_stuff_without_input(self):
         winner_song = show_song()

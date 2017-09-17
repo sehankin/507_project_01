@@ -1,4 +1,9 @@
 
+-LAST TESTS:
+	*deck's string method
+	*more hand sizes on shuffle
+	*does show_song take a search term
+
 -for cards and decks, can check if our test objects are instances of those classes
 
 -class Card class variables
@@ -52,4 +57,3 @@
 
 -function show_song
 	*does the function return a Song object
-	*BUG: whatever your search term, the function searches for a random element from the list of ["win","winner","hurrah","hooray"] (cf. line 111 in SI507F17_project1_cards.py)
